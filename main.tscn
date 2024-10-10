@@ -1687,4 +1687,4 @@ parameters/walk/blend_position = Vector2(-0.709627, 0.650485)
 position = Vector2(63, 36)
 sprite_frames = SubResource("SpriteFrames_5en2h")
 animation = &"idle_right"
-frame = 3
+frame = 1
