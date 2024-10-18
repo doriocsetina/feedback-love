@@ -1,19 +1,16 @@
-[gd_scene load_steps=5 format=4 uid="uid://dkgceml22dgy4"]
+[gd_scene load_steps=4 format=3 uid="uid://dkgceml22dgy4"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_auub7"]
-[ext_resource type="PackedScene" uid="uid://dlmu6jimw13gy" path="res://scenes/level1.tscn" id="1_heyon"]
+[ext_resource type="PackedScene" uid="uid://c7y8tqjxqaq8g" path="res://scenes/level.tscn" id="2_g13y5"]
 [ext_resource type="PackedScene" uid="uid://bxet6mdsdmelq" path="res://scenes/player.tscn" id="2_kqwpy"]
-[ext_resource type="Script" path="res://scenes/level_1.gd" id="3_pytmk"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_auub7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(2, 2)
 
-[node name="Node2D" parent="." instance=ExtResource("1_heyon")]
-tile_map_data = PackedByteArray("AAAAAAAAAAABAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD+////AAAAAAAAAAD/////AAAAAAAAAAAAAAEAAAABAAAAAAAAAAIAAAABAAAAAAABAAIAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAD//wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAACAAQAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAMAAAABAAAAAAABAAMAAAABAAAAAAACAAMAAAABAAAAAAADAAQAAAAAAAAAAAADAAMAAAABAAAAAAADAAIAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAABAP//AAABAAAAAAACAAIAAAAAAAAAAAADAAAAAAABAAAAAAADAP//AAABAAAAAAACAP//AAABAAAAAAAAAP//AAABAAAAAAD+/wQAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAAAAAABAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAD9//7/AAAAAAEAAAD9////AAAAAAEAAAD9/wAAAAAAAAEAAAD9/wEAAAAAAAEAAAD+//7/AAAAAAEAAAD9/wQAAAAAAAAAAAD9/wMAAAAAAAAAAAD8/wMAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wIAAAAAAAEAAAD8/wAAAAAAAAAAAAD8////AAAAAAAAAAD8//7/AAAAAAAAAAD9//3/AAAAAAEAAAD+//3/AAAAAAEAAAD///7/AAAAAAEAAAD///3/AAAAAAEAAAAAAP7/AAAAAAEAAAABAP7/AAAAAAEAAAABAP3/AAAAAAEAAAAAAP3/AAAAAAEAAAAAAPz/AAAAAAEAAAD///z/AAAAAAEAAAD+//z/AAAAAAEAAAACAP7/AAABAAEAAAA=")
-script = ExtResource("3_pytmk")
+[node name="level" parent="." instance=ExtResource("2_g13y5")]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_kqwpy")]
-position = Vector2(59, 34)
+position = Vector2(-1, 0)
