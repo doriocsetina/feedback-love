@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var direction : Vector2 = Vector2.ZERO
-const tile_size = Vector2(64, 32)
+const tile_size = Vector2(128, 64)
 var selected_tile = Vector2()
 
 @onready var animation_tree: AnimationTree = $AnimationTree
