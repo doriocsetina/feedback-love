@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3dk0plajy1xi"]
+
+[ext_resource type="Texture2D" uid="uid://cp8w01rtghuk7" path="res://assets/sprites/SBIRROSCEMO.png" id="1_svuc7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4ckl"]
+radius = 12.7717
+
+[node name="sbirro_basic" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_svuc7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 33)
+scale = Vector2(1.41665, 0.773274)
+shape = SubResource("CircleShape2D_b4ckl")

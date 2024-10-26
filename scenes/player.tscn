@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dxogk7deoaeam" path="res://assets/sprites/alex/alex-walking-spritesheet-0.png" id="3_o0tt4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jtq3"]
-radius = 17.6473
+radius = 34.2345
 
 [sub_resource type="Animation" id="Animation_qu3lu"]
 length = 1.00001
@@ -1654,11 +1654,15 @@ animations = [{
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_8vpsy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(-1, -1.00001)
-scale = Vector2(1.41665, 0.773274)
+scale = Vector2(1.525, 2.485)
 shape = SubResource("CircleShape2D_7jtq3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
