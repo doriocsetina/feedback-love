@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dkgceml22dgy4"]
+[gd_scene load_steps=16 format=4 uid="uid://dkgceml22dgy4"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_auub7"]
 [ext_resource type="TileSet" uid="uid://d1wgmxawfbe4m" path="res://isolevel.tres" id="2_2jtd5"]
@@ -8,6 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://b3dk0plajy1xi" path="res://scenes/sbirro_basic.tscn" id="5_bhaqa"]
 [ext_resource type="Script" path="res://scenes/selectlayer.gd" id="6_ed7fd"]
 [ext_resource type="Texture2D" uid="uid://cbg18xrnf025a" path="res://assets/terrain/selected.png" id="6_xl4vs"]
+[ext_resource type="Texture2D" uid="uid://85pmakql5i7o" path="res://assets/ui/Q-ui.png" id="9_gyy40"]
+[ext_resource type="Script" path="res://scenes/gui.gd" id="9_yxl6k"]
+[ext_resource type="Texture2D" uid="uid://bvcsx4ant6vi0" path="res://assets/ui/W-ui.png" id="10_nonpg"]
+[ext_resource type="Texture2D" uid="uid://cdp7xub8742xj" path="res://assets/ui/E-ui.png" id="11_p8m5c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tohe1"]
 texture = ExtResource("6_xl4vs")
@@ -29,7 +33,9 @@ tile_offset_axis = 1
 tile_size = Vector2i(128, 64)
 sources/0 = SubResource("TileSetAtlasSource_tohe1")
 
-[node name="Main" type="Node2D"]
+[sub_resource type="Theme" id="Theme_v72uv"]
+
+[node name="main" type="Node2D"]
 script = ExtResource("1_auub7")
 
 [node name="obstacles" type="TileMapLayer" parent="."]
@@ -54,9 +60,37 @@ tile_map_data = PackedByteArray("AAD9//3/AgAAAAAAAAD9//7/AgAAAAAAAAD9////AgAAAAA
 tile_set = ExtResource("2_2jtd5")
 script = ExtResource("3_aadoj")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-34, -46)
-
 [node name="select" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_eafyg")
 script = ExtResource("6_ed7fd")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-34, -46)
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_yxl6k")
+
+[node name="abilities" type="HBoxContainer" parent="GUI"]
+layout_mode = 0
+offset_left = -593.0
+offset_top = 187.0
+offset_right = -386.0
+offset_bottom = 259.0
+theme = SubResource("Theme_v72uv")
+
+[node name="dash" type="Button" parent="GUI/abilities"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("9_gyy40")
+
+[node name="attack" type="Button" parent="GUI/abilities"]
+layout_mode = 2
+icon = ExtResource("10_nonpg")
+
+[node name="shield" type="Button" parent="GUI/abilities"]
+layout_mode = 2
+icon = ExtResource("11_p8m5c")

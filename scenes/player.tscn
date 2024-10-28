@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dxogk7deoaeam" path="res://assets/sprites/alex/alex-walking-spritesheet-0.png" id="3_o0tt4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jtq3"]
-radius = 34.2345
+radius = 13.0928
 
 [sub_resource type="Animation" id="Animation_qu3lu"]
 length = 1.00001
@@ -1653,7 +1653,7 @@ animations = [{
 "speed": 18.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_8vpsy")
@@ -1662,7 +1662,6 @@ script = ExtResource("1_8vpsy")
 z_index = 1
 y_sort_enabled = true
 position = Vector2(-1, -1.00001)
-scale = Vector2(1.525, 2.485)
 shape = SubResource("CircleShape2D_7jtq3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1682,4 +1681,4 @@ parameters/walk/blend_position = Vector2(-0.709627, 0.650485)
 position = Vector2(-4, -28)
 sprite_frames = SubResource("SpriteFrames_5en2h")
 animation = &"idle_right"
-frame = 4
+frame = 1
