@@ -7,7 +7,7 @@ enum Abilities { NONE, DASH, SHIELD, ATTACK }
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var obstacles: TileMapLayer = get_parent();
-
+@onready var selectlayer: TileMapLayer = get_node("/root/main/select")
 
 var current_ability = Abilities.NONE
 
@@ -30,10 +30,12 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		var tile_map_layer = Main.get_tile_map_layer()
 		if tile_map_layer:
-			print("clicked")
 			var tile_pos = tile_map_layer.local_to_map(get_global_mouse_position())
-			if is_adjacent_and_valid(tile_pos):
+			if is_valid(tile_pos) and selectlayer.is_in_range(current_ability, tile_pos):
+				print("clicked and moved")
 				selected_tile = tile_map_layer.map_to_local(tile_pos)
+				current_ability = Abilities.NONE
+			
 
 func _physics_process(_delta: float) -> void:
 	direction = selected_tile - position 
@@ -56,6 +58,12 @@ func is_adjacent_and_valid(tile_pos: Vector2i) -> bool:
 		if tile_pos not in obstacles.obstacle_tiles:
 			return true
 	return false
+
+func is_valid(tile_pos: Vector2i) -> bool:
+	if tile_pos not in obstacles.obstacle_tiles:
+		return true
+	return false 
+
 
 
 

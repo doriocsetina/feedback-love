@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dkgceml22dgy4"]
+[gd_scene load_steps=20 format=4 uid="uid://dkgceml22dgy4"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_auub7"]
 [ext_resource type="TileSet" uid="uid://d1wgmxawfbe4m" path="res://isolevel.tres" id="2_2jtd5"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://b3dk0plajy1xi" path="res://scenes/sbirro_basic.tscn" id="5_bhaqa"]
 [ext_resource type="Script" path="res://scenes/selectlayer.gd" id="6_ed7fd"]
 [ext_resource type="Texture2D" uid="uid://cbg18xrnf025a" path="res://assets/terrain/selected.png" id="6_xl4vs"]
+[ext_resource type="Texture2D" uid="uid://uk528rtuo86n" path="res://assets/ui/attack-tile.png" id="8_y4wld"]
 [ext_resource type="Texture2D" uid="uid://85pmakql5i7o" path="res://assets/ui/Q-ui.png" id="9_gyy40"]
+[ext_resource type="Texture2D" uid="uid://dbehnymcbqr6s" path="res://assets/ui/range-tile.png" id="9_y3iey"]
 [ext_resource type="Script" path="res://scenes/gui.gd" id="9_yxl6k"]
 [ext_resource type="Texture2D" uid="uid://bvcsx4ant6vi0" path="res://assets/ui/W-ui.png" id="10_nonpg"]
 [ext_resource type="Texture2D" uid="uid://cdp7xub8742xj" path="res://assets/ui/E-ui.png" id="11_p8m5c"]
@@ -26,12 +28,25 @@ texture_region_size = Vector2i(64, 64)
 2:1/0 = 0
 3:1/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mfhqd"]
+texture = ExtResource("8_y4wld")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -32)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4nwfv"]
+texture = ExtResource("9_y3iey")
+texture_region_size = Vector2i(128, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_eafyg"]
 tile_shape = 1
 tile_layout = 5
 tile_offset_axis = 1
 tile_size = Vector2i(128, 64)
 sources/0 = SubResource("TileSetAtlasSource_tohe1")
+sources/1 = SubResource("TileSetAtlasSource_mfhqd")
+sources/2 = SubResource("TileSetAtlasSource_4nwfv")
 
 [sub_resource type="Theme" id="Theme_v72uv"]
 
@@ -66,6 +81,7 @@ script = ExtResource("6_ed7fd")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-34, -46)
+zoom = Vector2(2, 2)
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
