@@ -8,7 +8,7 @@ func _ready() -> void:
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var current_tile = local_to_map(character.position)
 	
 	reset_cells()
@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 						set_cell(current_tile + Vector2i(dx, dy), 2, Vector2i(0, 0))
 		character.Abilities.SHIELD:
 			# No movement, just highlight the current current_tile
-			set_cell(current_tile, 0, Vector2i(0, 0))
+			set_cell(current_tile, 2, Vector2i(0, 0))
 		character.Abilities.ATTACK:
 			# Allow moving in four basic directions	
 			set_cell(current_tile, 1, Vector2i(0, 0))
@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 			set_cell(current_tile + Vector2i(0, -1), 1, Vector2i(0, 0))
 		character.Abilities.NONE:
 			# Default behavior
-			set_cell(current_tile, 0, Vector2i(0, 0))
+			pass
 	
 	previous_tile = current_tile
 
@@ -52,7 +52,7 @@ func is_in_range(current_ability: int, selected_position: Vector2i) -> bool:
 		character.Abilities.ATTACK:
 			return manhattan_distance == 1
 		character.Abilities.NONE:
-			return manhattan_distance == 0
+			return manhattan_distance == 1
 	return false
 
 func reset_cells():

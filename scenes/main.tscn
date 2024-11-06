@@ -1,17 +1,17 @@
 [gd_scene load_steps=20 format=4 uid="uid://dkgceml22dgy4"]
 
-[ext_resource type="Script" path="res://scenes/main.gd" id="1_auub7"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_auub7"]
 [ext_resource type="TileSet" uid="uid://d1wgmxawfbe4m" path="res://isolevel.tres" id="2_2jtd5"]
 [ext_resource type="PackedScene" uid="uid://bxet6mdsdmelq" path="res://scenes/player.tscn" id="2_kqwpy"]
-[ext_resource type="Script" path="res://scenes/tile_map_layer.gd" id="3_aadoj"]
-[ext_resource type="Script" path="res://scenes/obstacles.gd" id="3_sfwx7"]
+[ext_resource type="Script" path="res://scripts/tile_map_layer.gd" id="3_aadoj"]
+[ext_resource type="Script" path="res://scripts/obstacles.gd" id="3_sfwx7"]
 [ext_resource type="PackedScene" uid="uid://b3dk0plajy1xi" path="res://scenes/sbirro_basic.tscn" id="5_bhaqa"]
-[ext_resource type="Script" path="res://scenes/selectlayer.gd" id="6_ed7fd"]
+[ext_resource type="Script" path="res://scripts/selectlayer.gd" id="6_ed7fd"]
 [ext_resource type="Texture2D" uid="uid://cbg18xrnf025a" path="res://assets/terrain/selected.png" id="6_xl4vs"]
 [ext_resource type="Texture2D" uid="uid://uk528rtuo86n" path="res://assets/ui/attack-tile.png" id="8_y4wld"]
 [ext_resource type="Texture2D" uid="uid://85pmakql5i7o" path="res://assets/ui/Q-ui.png" id="9_gyy40"]
 [ext_resource type="Texture2D" uid="uid://dbehnymcbqr6s" path="res://assets/ui/range-tile.png" id="9_y3iey"]
-[ext_resource type="Script" path="res://scenes/gui.gd" id="9_yxl6k"]
+[ext_resource type="Script" path="res://scripts/gui.gd" id="9_yxl6k"]
 [ext_resource type="Texture2D" uid="uid://bvcsx4ant6vi0" path="res://assets/ui/W-ui.png" id="10_nonpg"]
 [ext_resource type="Texture2D" uid="uid://cdp7xub8742xj" path="res://assets/ui/E-ui.png" id="11_p8m5c"]
 
@@ -81,7 +81,6 @@ script = ExtResource("6_ed7fd")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-34, -46)
-zoom = Vector2(2, 2)
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -100,13 +99,36 @@ theme = SubResource("Theme_v72uv")
 
 [node name="dash" type="Button" parent="GUI/abilities"]
 layout_mode = 2
-toggle_mode = true
 icon = ExtResource("9_gyy40")
+
+[node name="dash_cd" type="Label" parent="GUI/abilities/dash"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = -20.0
+offset_right = 71.0
+offset_bottom = 13.0
+text = "0"
 
 [node name="attack" type="Button" parent="GUI/abilities"]
 layout_mode = 2
 icon = ExtResource("10_nonpg")
 
+[node name="attack_cd" type="Label" parent="GUI/abilities/attack"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = -19.0
+offset_right = 151.0
+offset_bottom = 11.0
+text = "0"
+
 [node name="shield" type="Button" parent="GUI/abilities"]
 layout_mode = 2
 icon = ExtResource("11_p8m5c")
+
+[node name="shield_cd" type="Label" parent="GUI/abilities/shield"]
+layout_mode = 0
+offset_left = -73.0
+offset_top = -19.0
+offset_right = -6.0
+offset_bottom = 4.0
+text = "0"

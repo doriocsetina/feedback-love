@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-Main="*res://scenes/main.gd"
+Main="*res://scripts/main.gd"
 
 [editor_plugins]
 

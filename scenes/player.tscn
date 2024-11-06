@@ -1,8 +1,9 @@
-[gd_scene load_steps=203 format=3 uid="uid://bxet6mdsdmelq"]
+[gd_scene load_steps=204 format=3 uid="uid://bxet6mdsdmelq"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_8vpsy"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_8vpsy"]
 [ext_resource type="Texture2D" uid="uid://d20sbfcjscydh" path="res://assets/sprites/alex/alex-standing-spritesheet-0.png" id="2_n0seu"]
 [ext_resource type="Texture2D" uid="uid://dxogk7deoaeam" path="res://assets/sprites/alex/alex-walking-spritesheet-0.png" id="3_o0tt4"]
+[ext_resource type="Script" path="res://scripts/health_component.gd" id="4_1s05w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jtq3"]
 radius = 13.0928
@@ -1681,4 +1682,6 @@ parameters/walk/blend_position = Vector2(-0.709627, 0.650485)
 position = Vector2(-4, -28)
 sprite_frames = SubResource("SpriteFrames_5en2h")
 animation = &"idle_right"
-frame = 1
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("4_1s05w")
