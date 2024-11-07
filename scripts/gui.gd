@@ -2,7 +2,7 @@ extends Control
 
 
 # Called when the node enters the scene tree for the first time.
-@onready var character = get_node("/root/main/obstacles/player")  # Adjust the path as necessary
+@onready var player = get_node("/root/main/obstacles/player")  # Adjust the path as necessary
 @onready var dash_button = $abilities/dash
 @onready var attack_button = $abilities/shield
 @onready var shield_button = $abilities/attack
@@ -18,7 +18,7 @@ func _ready():
 	dash_button.pressed.connect(self._on_dash_button_pressed)
 	attack_button.pressed.connect(self._on_shield_button_pressed)
 	shield_button.pressed.connect(self._on_attack_button_pressed)
-	character.move_done.connect(self._on_move_done)
+	player.move_done.connect(self._on_move_done)
 	
 
 func _input(event: InputEvent) -> void:
@@ -37,27 +37,27 @@ func _input(event: InputEvent) -> void:
 
 func _on_dash_button_pressed():
 	if dash_button.button_pressed:
-		character.use_dash()
+		player.use_dash()
 		shield_button.button_pressed = false
 		attack_button.button_pressed = false
 	else:
-		character.reset_ability()
+		player.reset_ability()
 
 func _on_shield_button_pressed():
 	if shield_button.button_pressed:
-		character.use_shield()
+		player.use_shield()
 		dash_button.button_pressed = false
 		attack_button.button_pressed = false
 	else:
-		character.reset_ability()
+		player.reset_ability()
 
 func _on_attack_button_pressed():
 	if attack_button.button_pressed:
-		character.use_attack()
+		player.use_attack()
 		dash_button.button_pressed = false
 		shield_button.button_pressed = false
 	else:
-		character.reset_ability()
+		player.reset_ability()
 
 func _on_move_done():
 	update_cooldown_labels()
@@ -70,9 +70,9 @@ func reset_buttons():
 	attack_button.button_pressed = false
 
 func update_cooldown_labels():
-	dash_cooldown_label.text = str(character.dash_cooldown)
-	shield_cooldown_label.text = str(character.shield_cooldown)
-	attack_cooldown_label.text = str(character.attack_cooldown)
+	dash_cooldown_label.text = str(player.dash_cooldown)
+	shield_cooldown_label.text = str(player.shield_cooldown)
+	attack_cooldown_label.text = str(player.attack_cooldown)
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

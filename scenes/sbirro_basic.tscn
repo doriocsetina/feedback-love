@@ -1,16 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3dk0plajy1xi"]
+[gd_scene load_steps=5 format=3 uid="uid://b3dk0plajy1xi"]
 
 [ext_resource type="Texture2D" uid="uid://cp8w01rtghuk7" path="res://assets/sprites/SBIRROSCEMO.png" id="1_svuc7"]
+[ext_resource type="Script" path="res://scripts/sbirro_basic.gd" id="1_tmk8g"]
+[ext_resource type="PackedScene" uid="uid://dcxq7kvfjlp05" path="res://scenes/HealthComponent.tscn" id="3_a23av"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4ckl"]
 radius = 12.7717
 
 [node name="sbirro_basic" type="CharacterBody2D"]
+script = ExtResource("1_tmk8g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -1)
 texture = ExtResource("1_svuc7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 33)
+position = Vector2(2, 31)
 scale = Vector2(1.41665, 0.773274)
 shape = SubResource("CircleShape2D_b4ckl")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_a23av")]
+position = Vector2(4, 32)

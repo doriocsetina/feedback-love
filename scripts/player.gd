@@ -44,14 +44,16 @@ func _input(event: InputEvent) -> void:
 				match current_ability:
 					Abilities.DASH:
 						dash_cooldown = 3
+						selected_tile = tile_map_layer.map_to_local(tile_pos)
 					Abilities.SHIELD:
 						shield_cooldown = 3
 					Abilities.ATTACK:
 						attack_cooldown = 3
+					Abilities.NONE:
+						selected_tile = tile_map_layer.map_to_local(tile_pos)
 				print("clicked and moved")
-				selected_tile = tile_map_layer.map_to_local(tile_pos)
 				current_ability = Abilities.NONE
-				_on_move_done()
+				cooldown()
 				emit_signal("move_done")
 				print("cd of dash is: ", dash_cooldown)
 			
@@ -73,7 +75,7 @@ func is_valid(tile_pos: Vector2i) -> bool:
 		return true
 	return false 
 
-func _on_move_done():
+func cooldown():
 	if dash_cooldown > 0:
 		dash_cooldown -= 1
 	if shield_cooldown > 0:
