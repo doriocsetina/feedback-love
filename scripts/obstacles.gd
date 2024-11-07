@@ -1,38 +1,47 @@
 extends TileMapLayer
 
 @export var obstacle_tiles = []
-@export var enemy_tiles = []
+@export var enemies_dict : Dictionary
+@export var interactables_dict : Dictionary
+
+@export var player : CharacterBody2D
+@export var ground : TileMapLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	identify_obstacles()
 	print("obstacles are: ", obstacle_tiles)
-	print("enemies are: ", enemy_tiles)
-
-	var player = get_node("/root/main/obstacles/player")  # Adjust the path as necessary
 	if player:
 		player.move_done.connect(self.identify_obstacles)
-		player.move_done.connect(self.print_enemies)
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func identify_obstacles():
 	obstacle_tiles.clear()
-	enemy_tiles.clear()
-	var map_size = get_used_rect()
-	for x in range(map_size.position.x, map_size.position.x + map_size.size.x):
-		for y in range(map_size.position.y, map_size.position.y + map_size.size.y):
-			var tile_index = get_cell_source_id(Vector2i(x,y))
-			if tile_index == 2:  # Assuming 1 is the obstacle tile index
+	enemies_dict.clear()
+
+	var map_size = ground.get_used_rect()
+	for x in range(map_size.position.x, map_size.position.x + map_size.size.x + 1):
+		for y in range(map_size.position.y, map_size.position.y + map_size.size.y + 1):
+			var tile_index_obstacle = get_cell_source_id(Vector2i(x,y))
+			var tile_index_ground = ground.get_cell_source_id(Vector2i(x,y))
+			if tile_index_obstacle == 2 or tile_index_ground == -1:
 				obstacle_tiles.append(Vector2i(x, y))
 	
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	for enemy in enemies:
 		var enemy_pos = local_to_map(enemy.global_position)
-		enemy_tiles.append(enemy_pos)
-
-func print_enemies():
-	print("enemies are in: ", enemy_tiles)
+		enemies_dict[enemy_pos] = enemy
+	var interactables = get_tree().get_nodes_in_group("interactables")
+	for interactable in interactables:
+		print("found an interactable !")
+		var interactable_pos = local_to_map(interactable.global_position)
+		interactables_dict[interactable_pos] = interactable
+	
+	for enemyrecord in enemies_dict:
+		print("there is an enemy here: ", enemyrecord)
+	for interactable in interactables_dict:
+		print("there is an interactable here: ", interactable)

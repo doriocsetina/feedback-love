@@ -2,7 +2,9 @@ extends Control
 
 
 # Called when the node enters the scene tree for the first time.
-@onready var player = get_node("/root/main/obstacles/player")  # Adjust the path as necessary
+@export var player : Player
+@export var enemies : Node2D
+
 @onready var dash_button = $abilities/dash
 @onready var attack_button = $abilities/shield
 @onready var shield_button = $abilities/attack
@@ -19,6 +21,7 @@ func _ready():
 	attack_button.pressed.connect(self._on_shield_button_pressed)
 	shield_button.pressed.connect(self._on_attack_button_pressed)
 	player.move_done.connect(self._on_move_done)
+	player.attack_done.connect(self._on_move_done)
 	
 
 func _input(event: InputEvent) -> void:

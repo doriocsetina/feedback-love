@@ -1654,10 +1654,11 @@ animations = [{
 "speed": 18.0
 }]
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("health_component")]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_8vpsy")
+health_component = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -1685,3 +1686,11 @@ animation = &"idle_right"
 frame = 4
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_vpca5")]
+MAX_HEALTH = 3
+
+[node name="healthbar" type="ProgressBar" parent="."]
+offset_left = -33.0
+offset_top = -86.0
+offset_right = 19.0
+offset_bottom = -75.0
+show_percentage = false

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://camvunrufompt"]
+
+[ext_resource type="Texture2D" uid="uid://b1geoic0mrcg4" path="res://assets/terrain/placeholder-gate.png" id="1_2vf54"]
+[ext_resource type="Script" path="res://scripts/gate.gd" id="1_rqlkh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvm6b"]
+size = Vector2(144.733, 46.6875)
+
+[node name="gate" type="StaticBody2D"]
+script = ExtResource("1_rqlkh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2vf54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.157857, 31.8744)
+rotation = 0.453786
+scale = Vector2(1, 1)
+skew = 0.645772
+shape = SubResource("RectangleShape2D_wvm6b")

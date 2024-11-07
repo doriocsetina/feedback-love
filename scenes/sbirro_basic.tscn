@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3dk0plajy1xi"]
+[gd_scene load_steps=6 format=3 uid="uid://b3dk0plajy1xi"]
 
 [ext_resource type="Texture2D" uid="uid://cp8w01rtghuk7" path="res://assets/sprites/SBIRROSCEMO.png" id="1_svuc7"]
 [ext_resource type="Script" path="res://scripts/sbirro_basic.gd" id="1_tmk8g"]
 [ext_resource type="PackedScene" uid="uid://dcxq7kvfjlp05" path="res://scenes/HealthComponent.tscn" id="3_a23av"]
+[ext_resource type="Script" path="res://scripts/States/StateMachine.gd" id="4_vlfuu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4ckl"]
 radius = 12.7717
 
-[node name="sbirro_basic" type="CharacterBody2D"]
+[node name="sbirro_basic" type="CharacterBody2D" node_paths=PackedStringArray("health_component")]
 script = ExtResource("1_tmk8g")
+health_component = NodePath("HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, -1)
@@ -20,4 +22,14 @@ scale = Vector2(1.41665, 0.773274)
 shape = SubResource("CircleShape2D_b4ckl")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_a23av")]
-position = Vector2(4, 32)
+
+[node name="healthbar" type="ProgressBar" parent="."]
+offset_left = -41.0
+offset_top = -60.0
+offset_right = 45.0
+offset_bottom = -45.0
+max_value = 3.0
+show_percentage = false
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_vlfuu")
