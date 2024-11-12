@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/enemies.gd" id="5_q5pkw"]
 [ext_resource type="Script" path="res://scripts/selectlayer.gd" id="6_ed7fd"]
 [ext_resource type="Texture2D" uid="uid://cbg18xrnf025a" path="res://assets/terrain/selected.png" id="6_xl4vs"]
-[ext_resource type="PackedScene" uid="uid://camvunrufompt" path="res://scenes/gate.tscn" id="8_borpx"]
+[ext_resource type="PackedScene" uid="uid://dt46im5vkbg0n" path="res://scenes/gate.tscn" id="8_borpx"]
 [ext_resource type="Texture2D" uid="uid://uk528rtuo86n" path="res://assets/ui/attack-tile.png" id="8_y4wld"]
 [ext_resource type="Texture2D" uid="uid://85pmakql5i7o" path="res://assets/ui/Q-ui.png" id="9_gyy40"]
 [ext_resource type="Texture2D" uid="uid://dbehnymcbqr6s" path="res://assets/ui/range-tile.png" id="9_y3iey"]
@@ -61,16 +61,17 @@ tile_map_data = PackedByteArray("AAD9//3/AgAAAAAAAAD9//7/AgAAAAAAAAD9////AgAAAAA
 tile_set = ExtResource("2_2jtd5")
 script = ExtResource("3_aadoj")
 
-[node name="obstacles" type="TileMapLayer" parent="." node_paths=PackedStringArray("player", "ground")]
+[node name="obstacles" type="TileMapLayer" parent="." node_paths=PackedStringArray("player", "ground", "gate")]
 clip_children = 2
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD8/wIAAgADAAAAAAD8/wMAAgADAAAAAAD8/wQAAgADAAAAAAD8//3/AgADAAAAAAD9//3/AgADAAAAAAAAAP3/AgADAAAAAAADAAMAAgADAAAAAAADAAQAAgADAAAAAAADAAUAAgADAAAAAAADAAYAAgADAAAAAAAAAAgAAgADAAAAAAABAP3/AgABAAAAAAD7//3/AgADAAAAAAD6//3/AgADAAAAAAD5//3/AgADAAAAAAD5//7/AgADAAAAAAD5////AgADAAAAAAD5/wAAAgADAAAAAAACAP3/AgADAAAAAAADAP3/AgADAAAAAAAEAP3/AgADAAAAAAAFAP3/AgADAAAAAAAGAP3/AgADAAAAAAAGAP7/AgADAAAAAAAIAP//AgADAAAAAAAHAP//AgADAAAAAAAHAAAAAgADAAAAAAAHAAEAAgADAAAAAAAGAAEAAgADAAAAAAAGAAIAAgADAAAAAAAHAAMAAgADAAAAAAAHAAQAAgADAAAAAAAIAAQAAgADAAAAAAAIAAUAAgADAAAAAAAHAAUAAgADAAAAAAAHAAYAAgADAAAAAAAHAAcAAgADAAAAAAD+/wwAAgADAAAAAAD//wwAAgADAAAAAAAAAAwAAgADAAAAAAAAAA0AAgADAAAAAAABAA0AAgADAAAAAAABAAsAAgADAAAAAAABAAwAAgADAAAAAAACAAoAAgABAAAAAAACAAsAAgABAAAAAAD8/wAAAgABAAAAAAD6/wYAAgABAAAAAAD5/wcAAgABAAAAAAD5/wgAAgABAAAAAAD6/wgAAgABAAAAAAD7/wgAAgABAAAAAAA=")
+tile_map_data = PackedByteArray("AAADAAQAAgADAAAAAAAEAAIAAgABAAAAAAD/////AgABAAAAAAD4//z/AgABAAAAAAD5/wsAAgABAAAAAAAJAAoAAgABAAAAAAAJAPz/AgABAAAAAAA=")
 tile_set = ExtResource("2_2jtd5")
 script = ExtResource("3_sfwx7")
 player = NodePath("player")
 ground = NodePath("../ground")
+gate = NodePath("gate")
 
 [node name="enemies" type="Node2D" parent="obstacles" node_paths=PackedStringArray("player")]
 y_sort_enabled = true
@@ -78,11 +79,7 @@ script = ExtResource("5_q5pkw")
 player = NodePath("../player")
 
 [node name="sbirro_basic" parent="obstacles/enemies" node_paths=PackedStringArray("obstacles") instance=ExtResource("5_bhaqa")]
-position = Vector2(188, 73)
-obstacles = NodePath("../..")
-
-[node name="sbirro_basic2" parent="obstacles/enemies" node_paths=PackedStringArray("obstacles") instance=ExtResource("5_bhaqa")]
-position = Vector2(266, 101)
+position = Vector2(196, 95)
 obstacles = NodePath("../..")
 
 [node name="player" parent="obstacles" node_paths=PackedStringArray("obstacles", "selectlayer") instance=ExtResource("2_kqwpy")]
@@ -93,7 +90,6 @@ selectlayer = NodePath("../../select")
 
 [node name="Camera2D" type="Camera2D" parent="obstacles/player"]
 position = Vector2(92, -110)
-zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 6.13
 

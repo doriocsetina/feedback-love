@@ -1,7 +1,7 @@
 extends Node2D
 class_name HealthComponent
 
-@export var MAX_HEALTH := 5
+@export var MAX_HEALTH = 5
 var health : int
 
 # Called when the node enters the scene tree for the first time.

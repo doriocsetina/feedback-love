@@ -7,6 +7,8 @@ extends TileMapLayer
 @export var player : CharacterBody2D
 @export var ground : TileMapLayer
 
+@export var gate : StaticBody2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	identify_obstacles()
@@ -36,12 +38,7 @@ func identify_obstacles():
 		var enemy_pos = local_to_map(enemy.global_position)
 		enemies_dict[enemy_pos] = enemy
 	var interactables = get_tree().get_nodes_in_group("interactables")
+
 	for interactable in interactables:
-		print("found an interactable !")
 		var interactable_pos = local_to_map(interactable.global_position)
 		interactables_dict[interactable_pos] = interactable
-	
-	for enemyrecord in enemies_dict:
-		print("there is an enemy here: ", enemyrecord)
-	for interactable in interactables_dict:
-		print("there is an interactable here: ", interactable)

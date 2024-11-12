@@ -10,6 +10,7 @@ var shield_cooldown = 0
 var attack_cooldown = 0
 
 var direction : Vector2 = Vector2.ZERO
+var attack_direction : Vector2 = Vector2.ZERO
 const tile_size = Vector2(128, 64)
 var selected_tile : Vector2
 
@@ -17,8 +18,9 @@ var selected_tile : Vector2
 @export var selectlayer : TileMapLayer
 @export var health_component : HealthComponent
 
-@onready var animation_tree: AnimationTree = $AnimationTree
-@onready var healthbar: ProgressBar = $healthbar
+@onready var animation_tree : AnimationTree = $AnimationTree
+@onready var attack_timer: Timer = $AttackTimer
+@onready var healthbar : ProgressBar = $healthbar
 
 var current_ability = Abilities.NONE
 
@@ -41,10 +43,16 @@ func _ready():
 	healthbar.max_value = health_component.MAX_HEALTH
 	healthbar.value = health_component.health
 
+	# Configure the attack timer
+	attack_timer.wait_time = 0.1
+	attack_timer.one_shot = true
+	attack_timer.timeout.connect(self._on_attack_timer_timeout)
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		var tile_pos = obstacles.local_to_map(get_global_mouse_position())
 		if is_valid(tile_pos) and selectlayer.is_in_range(current_ability, get_global_mouse_position()):
+			
 			match current_ability:
 				Abilities.DASH:
 					dash_cooldown = 3
@@ -60,15 +68,22 @@ func _input(event: InputEvent) -> void:
 					if tile_pos in obstacles.enemies_dict:
 						obstacles.enemies_dict[tile_pos].damage(current_attack)
 					attack_done.emit()
+					direction = obstacles.map_to_local(tile_pos) - position
+					animation_tree["parameters/attack/blend_position"] = direction
+					animation_tree["parameters/walk/blend_position"] = direction
+					animation_tree["parameters/idle/blend_position"] = direction
+					animation_tree["parameters/conditions/attack"] = true
+					attack_timer.start()
 				Abilities.NONE:
 					selected_tile = obstacles.map_to_local(tile_pos)
 					move_done.emit()
 			current_ability = Abilities.NONE
 			cooldown()
-
+			
 func damage(attack: Attack):
 	if health_component:
 		health_component.damage(attack)
+	healthbar.value = health_component.health
 
 func is_valid(tile_pos: Vector2i) -> bool:
 	if tile_pos not in obstacles.obstacle_tiles:
@@ -86,13 +101,16 @@ func cooldown():
 func set_walking(value):
 	animation_tree["parameters/conditions/is_walking"] = value
 	animation_tree["parameters/conditions/idle"] = not value
-	
+
+func _on_attack_timer_timeout():
+	animation_tree["parameters/conditions/attack"] = false
 
 func update_blend_position():
 	animation_tree["parameters/walk/blend_position"] = direction
 	animation_tree["parameters/idle/blend_position"] = direction
 	
 func _physics_process(_delta: float) -> void:
+	
 	direction = selected_tile - position 
 	var distance = direction.length()
 
