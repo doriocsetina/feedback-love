@@ -3,6 +3,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 @export var player : Player
+@export var selectlayer : TileMapLayer
 @export var enemies : Node2D
 
 @onready var dash_button = $abilities/dash
@@ -41,9 +42,11 @@ func _input(event: InputEvent) -> void:
 func _on_dash_button_pressed():
 	if dash_button.button_pressed:
 		player.use_dash()
+		selectlayer.display_range()
 		shield_button.button_pressed = false
 		attack_button.button_pressed = false
 	else:
+		selectlayer.reset_cells()
 		player.reset_ability()
 
 func _on_shield_button_pressed():

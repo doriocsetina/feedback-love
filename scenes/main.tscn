@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://dkgceml22dgy4"]
+[gd_scene load_steps=24 format=4 uid="uid://dkgceml22dgy4"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_auub7"]
 [ext_resource type="TileSet" uid="uid://d1wgmxawfbe4m" path="res://isolevel.tres" id="2_2jtd5"]
@@ -15,7 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://dbehnymcbqr6s" path="res://assets/ui/range-tile.png" id="9_y3iey"]
 [ext_resource type="Script" path="res://scripts/gui.gd" id="9_yxl6k"]
 [ext_resource type="Texture2D" uid="uid://bvcsx4ant6vi0" path="res://assets/ui/W-ui.png" id="10_nonpg"]
+[ext_resource type="Script" path="res://scripts/units.gd" id="10_sthyi"]
 [ext_resource type="Texture2D" uid="uid://cdp7xub8742xj" path="res://assets/ui/E-ui.png" id="11_p8m5c"]
+[ext_resource type="Script" path="res://scripts/friendly.gd" id="13_58vb2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tohe1"]
 texture = ExtResource("6_xl4vs")
@@ -69,29 +71,9 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAADAAQAAgADAAAAAAAEAAIAAgABAAAAAAD/////AgABAAAAAAD4//z/AgABAAAAAAD5/wsAAgABAAAAAAAJAAoAAgABAAAAAAAJAPz/AgABAAAAAAA=")
 tile_set = ExtResource("2_2jtd5")
 script = ExtResource("3_sfwx7")
-player = NodePath("player")
+player = NodePath("../units/friendly/player")
 ground = NodePath("../ground")
 gate = NodePath("gate")
-
-[node name="enemies" type="Node2D" parent="obstacles" node_paths=PackedStringArray("player")]
-y_sort_enabled = true
-script = ExtResource("5_q5pkw")
-player = NodePath("../player")
-
-[node name="sbirro_basic" parent="obstacles/enemies" node_paths=PackedStringArray("obstacles") instance=ExtResource("5_bhaqa")]
-position = Vector2(196, 95)
-obstacles = NodePath("../..")
-
-[node name="player" parent="obstacles" node_paths=PackedStringArray("obstacles", "selectlayer") instance=ExtResource("2_kqwpy")]
-z_index = 0
-position = Vector2(-126, 64)
-obstacles = NodePath("..")
-selectlayer = NodePath("../../select")
-
-[node name="Camera2D" type="Camera2D" parent="obstacles/player"]
-position = Vector2(92, -110)
-position_smoothing_enabled = true
-position_smoothing_speed = 6.13
 
 [node name="gate" parent="obstacles" instance=ExtResource("8_borpx")]
 position = Vector2(157, -138)
@@ -99,18 +81,47 @@ position = Vector2(157, -138)
 [node name="select" type="TileMapLayer" parent="." node_paths=PackedStringArray("player", "obstacles")]
 tile_set = SubResource("TileSet_eafyg")
 script = ExtResource("6_ed7fd")
-player = NodePath("../obstacles/player")
+player = NodePath("../units/friendly/player")
 obstacles = NodePath("../obstacles")
 
-[node name="GUI" type="Control" parent="." node_paths=PackedStringArray("player", "enemies")]
+[node name="units" type="Node2D" parent="." node_paths=PackedStringArray("player_group", "enemy_group")]
+script = ExtResource("10_sthyi")
+player_group = NodePath("friendly")
+enemy_group = NodePath("enemies")
+
+[node name="enemies" type="Node2D" parent="units" node_paths=PackedStringArray("player")]
+y_sort_enabled = true
+script = ExtResource("5_q5pkw")
+player = NodePath("../friendly/player")
+
+[node name="sbirro_basic" parent="units/enemies" node_paths=PackedStringArray("obstacles") instance=ExtResource("5_bhaqa")]
+position = Vector2(196, 95)
+obstacles = NodePath("../../../obstacles")
+
+[node name="friendly" type="Node2D" parent="units"]
+script = ExtResource("13_58vb2")
+
+[node name="player" parent="units/friendly" node_paths=PackedStringArray("obstacles", "selectlayer") instance=ExtResource("2_kqwpy")]
+z_index = 0
+position = Vector2(-126, 64)
+obstacles = NodePath("../../../obstacles")
+selectlayer = NodePath("../../../select")
+
+[node name="Camera2D" type="Camera2D" parent="units/friendly/player"]
+position = Vector2(92, -110)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.13
+
+[node name="GUI" type="Control" parent="." node_paths=PackedStringArray("player", "selectlayer", "enemies")]
 z_index = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("9_yxl6k")
-player = NodePath("../obstacles/player")
-enemies = NodePath("../obstacles/enemies")
+player = NodePath("../units/friendly/player")
+selectlayer = NodePath("../select")
+enemies = NodePath("../units/enemies")
 
 [node name="abilities" type="HBoxContainer" parent="GUI"]
 layout_mode = 0

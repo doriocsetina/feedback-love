@@ -52,7 +52,7 @@ func initialize_astar():
 		for y in range(astar_grid.region.position.y, astar_grid.region.position.y + astar_grid.region.size.y):
 			var tile_pos = Vector2i(x, y)
 			if not obstacles.obstacle_tiles.has(tile_pos):
-				astar_grid.set_point_solid(tile_pos, false)
+				astar_grid.set_point_solid(tile_pos, true)
 			else:
 				astar_grid.set_point_solid(tile_pos, false)
 	astar_grid.update()

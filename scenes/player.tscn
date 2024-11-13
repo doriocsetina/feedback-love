@@ -2743,7 +2743,7 @@ parameters/walk/blend_position = Vector2(-0.709627, 0.650485)
 position = Vector2(-4, -28)
 sprite_frames = SubResource("SpriteFrames_5en2h")
 animation = &"idle_up"
-frame = 3
+frame = 4
 
 [node name="healthbar" type="ProgressBar" parent="."]
 offset_left = -33.0
@@ -2756,3 +2756,5 @@ metadata/_edit_use_anchors_ = true
 [node name="HealthComponent" parent="." instance=ExtResource("4_vpca5")]
 
 [node name="AttackTimer" type="Timer" parent="."]
+
+[node name="MoveTimer" type="Timer" parent="."]

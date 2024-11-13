@@ -1,14 +1,13 @@
 extends Node2D
 
-var tile_map_layer = null
-var player_history = []  # Store player states (position, actions, etc.)
-var enemy_history = []  # Store enemy states (position, actions, etc.)
+@onready var units: UnitsContainer = %units
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
 	pass
+
+
+func _on_battle_over(player_won: bool) -> void:
+	if player_won:
+		print("si vint")
+	else:
+		print("ia frnut")

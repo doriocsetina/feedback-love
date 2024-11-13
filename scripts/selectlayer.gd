@@ -10,8 +10,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	var current_tile = local_to_map(player.position)
+	pass
 	
+func display_range():
+	var current_tile = local_to_map(player.position)
+	print("astar is configured like this; ", player.astar_grid.diagonal_mode)
 	reset_cells()
 	if previous_tile != null and previous_tile != current_tile:
 		set_cell(previous_tile, -1)
@@ -20,10 +23,10 @@ func _process(_delta: float) -> void:
 	match player.current_ability:
 		player.Abilities.DASH:
 			# Allow moving two tiles
-			for dx in [-2, -1, 0, 1, 2]:
-				for dy in [-2, -1, 0, 1, 2]:
-					if abs(dx) + abs(dy) <= 2 and current_tile + Vector2i(dx, dy) not in obstacles.obstacle_tiles:  # Ensure we're within a Manhattan distance of 2
-						set_cell(current_tile + Vector2i(dx, dy), 2, Vector2i(0, 0))
+			var start_tile = local_to_map(player.position)
+			var reachable_tiles = get_reachable_tiles(start_tile, 4)
+			for tile in reachable_tiles:
+				set_cell(tile, 2, Vector2i(0, 0))
 		player.Abilities.SHIELD:
 			# No movement, just highlight the current current_tile
 			set_cell(current_tile, 2, Vector2i(0, 0))
@@ -40,21 +43,24 @@ func _process(_delta: float) -> void:
 	
 	previous_tile = current_tile
 
-func is_in_range(current_ability: int, selected_position: Vector2i) -> bool:
-	var current_tile = local_to_map(player.position)
-	var selected_tile = local_to_map(selected_position)
-	var manhattan_distance = abs(current_tile.x - selected_tile.x) + abs(current_tile.y - selected_tile.y)
-	
-	match current_ability:
-		player.Abilities.DASH:
-			return manhattan_distance <= 2
-		player.Abilities.SHIELD:
-			return manhattan_distance == 0
-		player.Abilities.ATTACK:
-			return manhattan_distance == 1
-		player.Abilities.NONE:
-			return manhattan_distance == 1
-	return false
+func get_reachable_tiles(start_tile: Vector2i, max_distance: int) -> Array:
+	var reachable_tiles = []
+	for x in range(player.astar_grid.region.position.x, player.astar_grid.region.position.x + player.astar_grid.region.size.x):
+		for y in range(player.astar_grid.region.position.y, player.astar_grid.region.position.y + player.astar_grid.region.size.y):
+			var tile_pos = Vector2i(x, y)
+			if not player.astar_grid.is_point_solid(tile_pos):
+				var path = player.astar_grid.get_id_path(start_tile, tile_pos)
+				if path.size() < max_distance + 1:
+					var is_valid_path = true
+					for point in path:
+						if player.astar_grid.is_point_solid(point):
+							is_valid_path = false
+							break
+					if is_valid_path:
+						reachable_tiles.append(tile_pos)
+			else:
+				print("there is an obstacle!")
+	return reachable_tiles
 
 func reset_cells():
 	var map_size = get_used_rect()
